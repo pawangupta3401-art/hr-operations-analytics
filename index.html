@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HR Operations & Employee Attrition Analytics | Executive Intelligence</title>
+  <meta name="description" content="Executive HR Operations & Employee Attrition Intelligence Platform with cohort filtering, flight risk simulator, and employee record analytics.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Top Navigation Header -->
+    <header class="navbar">
+      <div class="nav-brand">
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+        </div>
+        <div class="brand-info">
+          <div class="brand-title">HR Operations <span class="badge-pill">Analytics</span></div>
+          <div class="brand-subtitle">IBM Enterprise Workforce Intelligence • 1,470 Personnel</div>
+        </div>
+      </div>
+
+      <nav class="nav-tabs" id="nav-tabs">
+        <button class="nav-tab active" data-tab="overview" id="btn-tab-overview">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          Executive Overview
+        </button>
+        <button class="nav-tab" data-tab="diagnostics" id="btn-tab-diagnostics">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+          Attrition Diagnostics
+        </button>
+        <button class="nav-tab" data-tab="simulator" id="btn-tab-simulator">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          Flight Risk Simulator
+        </button>
+        <button class="nav-tab" data-tab="explorer" id="btn-tab-explorer">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+          Personnel Explorer
+        </button>
+        <button class="nav-tab" data-tab="report" id="btn-tab-report">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          Strategic BA Report
+        </button>
+      </nav>
+
+      <div class="header-actions">
+        <a href="https://github.com/pawangupta3401-art/hr-operations-analytics" target="_blank" rel="noopener noreferrer" class="btn-github">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Global Interactive Slicers Bar -->
+    <section class="filters-bar">
+      <div class="filters-container">
+        <div class="filter-header">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+          </svg>
+          <span>Interactive Slicers:</span>
+        </div>
+
+        <div class="filter-group">
+          <label for="filter-dept">Department</label>
+          <select id="filter-dept">
+            <option value="All">All Departments (3)</option>
+            <option value="Sales">Sales</option>
+            <option value="Research & Development">Research & Development</option>
+            <option value="Human Resources">Human Resources</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filter-gender">Gender</label>
+          <select id="filter-gender">
+            <option value="All">All Genders</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filter-marital">Marital Status</label>
+          <select id="filter-marital">
+            <option value="All">All Statuses</option>
+            <option value="Single">Single</option>
+            <option value="Married">Married</option>
+            <option value="Divorced">Divorced</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filter-overtime">OverTime</label>
+          <select id="filter-overtime">
+            <option value="All">All (Yes & No)</option>
+            <option value="Yes">OverTime: Yes</option>
+            <option value="No">OverTime: No</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filter-ageband">Age Band</label>
+          <select id="filter-ageband">
+            <option value="All">All Age Bands</option>
+            <option value="<25">&lt;25 yrs</option>
+            <option value="25-34">25–34 yrs</option>
+            <option value="35-44">35–44 yrs</option>
+            <option value="45-54">45–54 yrs</option>
+            <option value="55+">55+ yrs</option>
+          </select>
+        </div>
+
+        <button id="btn-reset-filters" class="btn-reset" title="Reset all slicers">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+          Reset Filters
+        </button>
+
+        <div class="active-cohort-pill" id="active-cohort-pill">
+          Showing <strong>1,470</strong> of 1,470 records
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="content-container">
+
+      <!-- TAB 1: EXECUTIVE OVERVIEW -->
+      <section class="tab-pane active" id="pane-overview">
+        <!-- KPI Metric Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card" id="kpi-total">
+            <div class="kpi-label">Total Headcount</div>
+            <div class="kpi-value" id="val-total">1,470</div>
+            <div class="kpi-footer">Active personnel tracked</div>
+            <div class="kpi-accent accent-blue"></div>
+          </div>
+
+          <div class="kpi-card" id="kpi-attrition-count">
+            <div class="kpi-label">Attrition Exits</div>
+            <div class="kpi-value text-red" id="val-attrition-count">237</div>
+            <div class="kpi-footer">Personnel departed organization</div>
+            <div class="kpi-accent accent-red"></div>
+          </div>
+
+          <div class="kpi-card" id="kpi-attrition-rate">
+            <div class="kpi-label">Attrition Rate</div>
+            <div class="kpi-value text-amber" id="val-attrition-rate">16.1%</div>
+            <div class="kpi-footer">Target threshold: &lt; 10.0%</div>
+            <div class="kpi-accent accent-amber"></div>
+          </div>
+
+          <div class="kpi-card" id="kpi-tenure">
+            <div class="kpi-label">Average Tenure</div>
+            <div class="kpi-value text-emerald" id="val-tenure">7.0 yrs</div>
+            <div class="kpi-footer">Avg company service length</div>
+            <div class="kpi-accent accent-emerald"></div>
+          </div>
+
+          <div class="kpi-card" id="kpi-salary">
+            <div class="kpi-label">Avg Monthly Compensation</div>
+            <div class="kpi-value" id="val-salary">$6,503</div>
+            <div class="kpi-footer">Payroll run: $9.56M/mo</div>
+            <div class="kpi-accent accent-purple"></div>
+          </div>
+        </div>
+
+        <!-- Charts Row 1: Dept & Job Role -->
+        <div class="charts-grid-2">
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">Attrition Rate by Department</div>
+              <div class="chart-tag">Pivot: Department</div>
+            </div>
+            <div class="chart-body">
+              <canvas id="chart-dept"></canvas>
+            </div>
+            <div class="chart-note">Sales (20.6%) &amp; HR (19.1%) exceed company average baseline.</div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">Attrition Rate by Job Role</div>
+              <div class="chart-tag">Pivot: JobRole</div>
+            </div>
+            <div class="chart-body">
+              <canvas id="chart-role"></canvas>
+            </div>
+            <div class="chart-note">Sales Representatives (39.8%) &amp; Lab Technicians (23.9%) have highest turnover.</div>
+          </div>
+        </div>
+
+        <!-- Charts Row 2: Age Band & Tenure Curve -->
+        <div class="charts-grid-2">
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">Attrition by Age Band</div>
+              <div class="chart-tag">Pivot: AgeBand</div>
+            </div>
+            <div class="chart-body">
+              <canvas id="chart-age"></canvas>
+            </div>
+            <div class="chart-note">Early-career staff under 25 experience peak attrition at 39.2%.</div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">Attrition by Years at Company (Tenure Curve)</div>
+              <div class="chart-tag">Pivot: YearsAtCompany</div>
+            </div>
+            <div class="chart-body">
+              <canvas id="chart-tenure"></canvas>
+            </div>
+            <div class="chart-note">High risk zone: 0 to 3 years. Sharp retention stability achieved after 4+ years.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: ATTRITION DIAGNOSTICS -->
+      <section class="tab-pane" id="pane-diagnostics">
+        <div class="section-banner">
+          <div class="banner-title">Deep-Dive Attrition Drivers &amp; Workplace Correlation</div>
+          <div class="banner-text">Evaluating the critical impact of OverTime workloads, Business Travel frequency, Job Satisfaction scores, and Distance From Home on attrition probabilities.</div>
+        </div>
+
+        <div class="charts-grid-2">
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">OverTime vs Non-OverTime Attrition</div>
+              <div class="chart-tag">Key Driver</div>
+            </div>
+            <div class="chart-body">
+              <canvas id="chart-overtime"></canvas>
+            </div>
+            <div class="chart-note">Employees logging OverTime have a <strong>30.5% attrition rate</strong>, compared to just <strong>10.4%</strong> without overtime (nearly 3x higher!).</div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">Business Travel Impact</div>
+              <div class="chart-tag">Travel Frequency</div>
+            </div>
+            <div class="chart-body">
+              <canvas id="chart-travel"></canvas>
+            </div>
+            <div class="chart-note">Frequent travelers exhibit 24.9% attrition vs 15.0% for rare travelers and 8.0% for non-travelers.</div>
+          </div>
+        </div>
+
+        <div class="charts-grid-2">
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">Job Satisfaction Score vs Attrition</div>
+              <div class="chart-tag">Survey Score 1-4</div>
+            </div>
+            <div class="chart-body">
+              <canvas id="chart-satisfaction"></canvas>
+            </div>
+            <div class="chart-note">Staff with Low Satisfaction (Score 1) suffer 22.8% attrition, dropping to 11.3% for High (Score 4).</div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">Work-Life Balance vs Marital Status</div>
+              <div class="chart-tag">Work-Life Matrix</div>
+            </div>
+            <div class="chart-body">
+              <canvas id="chart-worklife"></canvas>
+            </div>
+            <div class="chart-note">Poor Work-Life Balance (Level 1) yields 31.2% turnover, concentrated among Single personnel.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: FLIGHT RISK SIMULATOR -->
+      <section class="tab-pane" id="pane-simulator">
+        <div class="simulator-layout">
+          <!-- Left: Input Controls -->
+          <div class="simulator-controls-card">
+            <div class="card-title-row">
+              <div class="sim-icon">⚡</div>
+              <div>
+                <h3>Employee Flight Risk Calculator</h3>
+                <p>Simulate individual employee retention risk and prescribe targeted HR interventions in real-time.</p>
+              </div>
+            </div>
+
+            <div class="sim-grid">
+              <div class="sim-field">
+                <label for="sim-dept">Department</label>
+                <select id="sim-dept">
+                  <option value="Sales">Sales</option>
+                  <option value="Research & Development">Research & Development</option>
+                  <option value="Human Resources">Human Resources</option>
+                </select>
+              </div>
+
+              <div class="sim-field">
+                <label for="sim-role">Job Role</label>
+                <select id="sim-role">
+                  <option value="Sales Representative">Sales Representative</option>
+                  <option value="Sales Executive">Sales Executive</option>
+                  <option value="Laboratory Technician">Laboratory Technician</option>
+                  <option value="Research Scientist">Research Scientist</option>
+                  <option value="Human Resources">Human Resources</option>
+                  <option value="Healthcare Representative">Healthcare Representative</option>
+                  <option value="Manufacturing Director">Manufacturing Director</option>
+                  <option value="Manager">Manager</option>
+                  <option value="Research Director">Research Director</option>
+                </select>
+              </div>
+
+              <div class="sim-field">
+                <label for="sim-age">Age: <span id="lbl-sim-age">24 yrs</span></label>
+                <input type="range" id="sim-age" min="18" max="65" value="24">
+              </div>
+
+              <div class="sim-field">
+                <label for="sim-tenure">Years at Company: <span id="lbl-sim-tenure">1 yr</span></label>
+                <input type="range" id="sim-tenure" min="0" max="25" value="1">
+              </div>
+
+              <div class="sim-field">
+                <label for="sim-income">Monthly Income: <span id="lbl-sim-income">$2,800</span></label>
+                <input type="range" id="sim-income" min="1000" max="20000" step="200" value="2800">
+              </div>
+
+              <div class="sim-field">
+                <label for="sim-overtime">OverTime Commitment</label>
+                <select id="sim-overtime">
+                  <option value="Yes">Yes (Mandatory / Regular Overtime)</option>
+                  <option value="No">No (Standard 40 hrs / Week)</option>
+                </select>
+              </div>
+
+              <div class="sim-field">
+                <label for="sim-satisfaction">Job Satisfaction (1 = Low, 4 = High)</label>
+                <select id="sim-satisfaction">
+                  <option value="1">1 - Low Satisfaction</option>
+                  <option value="2">2 - Medium Satisfaction</option>
+                  <option value="3" selected>3 - High Satisfaction</option>
+                  <option value="4">4 - Very High Satisfaction</option>
+                </select>
+              </div>
+
+              <div class="sim-field">
+                <label for="sim-worklife">Work-Life Balance (1 = Bad, 4 = Best)</label>
+                <select id="sim-worklife">
+                  <option value="1">1 - Bad Work-Life Balance</option>
+                  <option value="2">2 - Medium Balance</option>
+                  <option value="3" selected>3 - Good Balance</option>
+                  <option value="4">4 - Excellent Balance</option>
+                </select>
+              </div>
+
+              <div class="sim-field">
+                <label for="sim-marital">Marital Status</label>
+                <select id="sim-marital">
+                  <option value="Single">Single</option>
+                  <option value="Married">Married</option>
+                  <option value="Divorced">Divorced</option>
+                </select>
+              </div>
+
+              <div class="sim-field">
+                <label for="sim-stock">Stock Option Level</label>
+                <select id="sim-stock">
+                  <option value="0">Level 0 (No Options)</option>
+                  <option value="1" selected>Level 1 (Standard Grant)</option>
+                  <option value="2">Level 2 (Senior Tier)</option>
+                  <option value="3">Level 3 (Executive Tier)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Output Score & Retention Prescription -->
+          <div class="simulator-result-card">
+            <div class="result-header">Computed Flight Risk Assessment</div>
+            
+            <div class="gauge-container">
+              <div class="risk-score-display" id="sim-score-box">
+                <span class="score-num" id="sim-score-num">48%</span>
+                <span class="score-label" id="sim-score-label">MODERATE RISK</span>
+              </div>
+              <div class="risk-bar-track">
+                <div class="risk-bar-fill" id="sim-bar-fill" style="width: 48%;"></div>
+              </div>
+            </div>
+
+            <div class="risk-breakdown-box">
+              <h4>Primary Vulnerability Drivers</h4>
+              <ul id="sim-vulnerability-list" class="vulnerability-list">
+                <!-- Injected via JS -->
+              </ul>
+            </div>
+
+            <div class="prescription-box">
+              <div class="rx-header">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                <span>Prescribed HR Retention Playbook</span>
+              </div>
+              <div class="rx-body" id="sim-rx-text">
+                Schedule a 90-day stay interview, offer mentorship alignment, and evaluate compensation against industry benchmark.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: PERSONNEL EXPLORER -->
+      <section class="tab-pane" id="pane-explorer">
+        <div class="explorer-card">
+          <div class="explorer-toolbar">
+            <div class="search-box">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="table-search" placeholder="Search by Employee ID, Job Role, Department...">
+            </div>
+
+            <div class="table-filter-chips">
+              <button class="chip-btn active" data-filter="all">All Records</button>
+              <button class="chip-btn" data-filter="attrition-yes">Departed (Attrition = Yes)</button>
+              <button class="chip-btn" data-filter="attrition-no">Retained (Active)</button>
+              <button class="chip-btn" data-filter="overtime-yes">OverTime = Yes</button>
+            </div>
+
+            <button id="btn-export-csv" class="btn-export">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Export CSV
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table" id="personnel-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Attrition</th>
+                  <th>Department</th>
+                  <th>Job Role</th>
+                  <th>Age Band</th>
+                  <th>Tenure</th>
+                  <th>Monthly Income</th>
+                  <th>OverTime</th>
+                  <th>Satisfaction</th>
+                  <th>Work-Life</th>
+                  <th>Marital</th>
+                </tr>
+              </thead>
+              <tbody id="table-body">
+                <!-- Dynamically generated rows -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Controls -->
+          <div class="pagination-footer">
+            <div class="pagination-info" id="pagination-info">
+              Showing 1 - 15 of 1,470 records
+            </div>
+            <div class="pagination-controls">
+              <button id="btn-prev-page" class="page-btn">&larr; Prev</button>
+              <span id="page-current">Page 1 of 98</span>
+              <button id="btn-next-page" class="page-btn">Next &rarr;</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: STRATEGIC BA REPORT -->
+      <section class="tab-pane" id="pane-report">
+        <div class="report-container">
+          <div class="report-header-card">
+            <h2>Business Analyst Executive Briefing</h2>
+            <p>Formal findings, root causes, and strategic human capital recommendations synthesized from the 1,470 personnel IBM HR study.</p>
+          </div>
+
+          <div class="report-pillars-grid">
+            <div class="pillar-card">
+              <div class="pillar-icon">🎯</div>
+              <h3>Pillar 1: Sales &amp; Technical Frontlines</h3>
+              <p><strong>Finding:</strong> Sales Representatives (39.8%) and Lab Technicians (23.9%) face attrition nearly double the company average of 16.1%.</p>
+              <ul>
+                <li>Conduct quarterly compensation benchmarking for sales commissions.</li>
+                <li>Mitigate bench burnout for Lab Techs through automated lab throughput tools.</li>
+                <li>Introduce tiered Sales quota ramp-ups during early quarters.</li>
+              </ul>
+            </div>
+
+            <div class="pillar-card">
+              <div class="pillar-icon">🌱</div>
+              <h3>Pillar 2: Early Tenure Shield (0–3 Yrs)</h3>
+              <p><strong>Finding:</strong> 58.6% of all exits take place within the first 3 years of service; age group &lt;25 experiences 39.2% turnover.</p>
+              <ul>
+                <li>Establish mandatory 90-day onboarding checkpoints with skip-level leaders.</li>
+                <li>Assign dedicated peer buddies to every new hire for their first 6 months.</li>
+                <li>Conduct milestone "Stay Interviews" at months 6, 12, and 24 to pre-empt resignations.</li>
+              </ul>
+            </div>
+
+            <div class="pillar-card">
+              <div class="pillar-icon">⚖️</div>
+              <h3>Pillar 3: OverTime &amp; Work-Life Balance</h3>
+              <p><strong>Finding:</strong> Personnel working OverTime endure a 30.5% attrition rate versus only 10.4% for non-overtime staff (3x multiplier).</p>
+              <ul>
+                <li>Set automated HR alerts when an employee logs excessive overtime for 2 consecutive quarters.</li>
+                <li>Enforce compensatory off days and flexible hybrid work scheduling.</li>
+                <li>Rebalance project staffing to eliminate systemic single-point dependencies.</li>
+              </ul>
+            </div>
+
+            <div class="pillar-card">
+              <div class="pillar-icon">📈</div>
+              <h3>Pillar 4: Career Mobility &amp; Stock Alignment</h3>
+              <p><strong>Finding:</strong> Employees with zero stock options (Level 0) display 24.4% attrition versus only 9.4% for employees with Level 1 or 2 equity grants.</p>
+              <ul>
+                <li>Expand equity / long-term incentive access to high-performing early-career staff.</li>
+                <li>Create transparent internal promotion pathways with clear skill-based rubrics.</li>
+                <li>Provide tuition reimbursement and cross-departmental lateral rotation programs.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="roi-impact-card">
+            <h3>Projected Strategic ROI &amp; Human Capital Savings</h3>
+            <div class="roi-stats-row">
+              <div class="roi-stat">
+                <span class="roi-val">$2.85M</span>
+                <span class="roi-desc">Estimated Annual Replacement Cost (at 50% avg annual salary per exit)</span>
+              </div>
+              <div class="roi-stat">
+                <span class="roi-val">-35%</span>
+                <span class="roi-desc">Targeted Attrition Reduction in Sales &amp; Early-Tenure Segments</span>
+              </div>
+              <div class="roi-stat">
+                <span class="roi-val">$990K+</span>
+                <span class="roi-desc">Projected Net Annual Turnover Cost Savings</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div>HR Operations &amp; Attrition Analytics • Live Production Deployment</div>
+      <div>Designed with Vite &amp; Chart.js • Deployed on Vercel</div>
+    </footer>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

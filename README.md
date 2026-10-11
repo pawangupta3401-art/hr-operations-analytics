@@ -1,11 +1,18 @@
-## HR Operations / Attrition Analytics
+## 📊 HR Operations & Employee Attrition Analytics
+
+[![Vercel Deployment](https://img.shields.io/badge/Live%20Demo-Vercel%20Production-success?style=for-the-badge&logo=vercel)](https://hr-operations-analytics.vercel.app)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-pawangupta3401--art-blue?style=for-the-badge&logo=github)](https://github.com/pawangupta3401-art/hr-operations-analytics)
+
+> 🚀 **Live Interactive Web Application**: **[https://hr-operations-analytics.vercel.app](https://hr-operations-analytics.vercel.app)**  
+> Real-time cohort slicers, flight risk simulator, personnel records explorer, and strategic BA retention roadmap across all 1,470 employee records.
 
 This project analyzes employee attrition (turnover) for an HR/Operations team using:
 
-    - **Excel** for KPIs, pivot tables, and an interactive dashboard  
+    - **Interactive Web Dashboard** (Vite, Chart.js, Vercel) for real-time cohort intelligence & flight risk simulator
+    - **Excel** for KPIs, pivot tables, and presentation dashboard  
     - **MySQL** for SQL-based analysis  
     - **BA-style documentation** of findings and recommendations  
-The dataset is the well-known **IBM HR Analytics Employee Attrition** dataset (publicly available).
+The dataset is the well-known **IBM HR Analytics Employee Attrition** dataset (1,470 records, 35 attributes).
 
 ---
 
@@ -171,7 +178,10 @@ The file "docs/ba_report.md" summarizes the project like a Business Analyst woul
 
 ## 🚀 How to Reproduce
 * Clone the repo:
-        git clone https://github.com/siddeshr007/hr-operations-analytics.git
+        git clone https://github.com/pawangupta3401-art/hr-operations-analytics.git
+* Install dependencies and run locally:
+        npm install
+        npm run dev
 * Open "excel/hr_attrition_dashboard.xlsx" in Excel to explore the dashboard.
 * To run the SQL:
     - Import "data/hr_attrition_raw.csv" into a MySQL table called "employees" in a database called "hr_operations".
